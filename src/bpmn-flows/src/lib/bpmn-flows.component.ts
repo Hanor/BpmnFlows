@@ -11,7 +11,6 @@ export class BpmnFlowsComponent implements OnInit {
   constructor(private bpmnFlowsService: BpmnFlowsService) { }
 
   ngOnInit() {
-    console.log("ok")
     this.bpmnFlowsService.initialize( this.fileUrl );
   }
 
