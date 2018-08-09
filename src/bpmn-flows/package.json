@@ -1,6 +1,7 @@
 {
   "name": "bpmn-flows",
-  "version": "0.0.3",
+  "version": "0.0.5",
+  "description": "Mechanism to viewer and edit bpmn 2.0 in angular",
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
@@ -11,5 +12,15 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Hanor/FlowsBpmn.git"
-  }
+  },
+  "keywords": [
+    "angular bpmn",
+    "bpmn",
+    "bpmn typescript",
+    "bpmn 2.0",
+    "angular 6 bpmn",
+    "angular 6 bpmn 2.0"
+  ],
+  "author": "Hanor Sátiro Cintra <hanor.cintra@outlook.com>",
+  "license": "MIT"
 }

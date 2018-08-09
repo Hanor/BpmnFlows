@@ -1,10 +1,10 @@
 {
   "name": "bomn-flows-demo",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "copy": "cpx src/bpmn-flows/src/lib/bpmn-flows.component.scss dist/bpmn-flows/ && cpx src/bpmn-flows/readme.md dist/bpmn-flows",
+    "copy": "cpx src/bpmn-flows/src/lib/bpmn-flows.component.scss dist/bpmn-flows/ && cpx README.md dist/bpmn-flows",
     "build": "ng build BpmnFlows --prod && npm run copy",
     "test": "ng test BpmnFlows",
     "lint": "ng lint BpmnFlows",
@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^6.1.2",
     "@angular/router": "^6.1.2",
     "core-js": "^2.5.4",
+    "cpx": "^1.5.0",
     "d3": "^5.5.0",
     "rxjs": "^6.0.0",
     "zone.js": "~0.8.26"
