@@ -1,0 +1,53 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+dist
+
+# lib
+src/bpmn-flows/dist
+src/bpmn-flows/tmp
+src/bpmn-flows/out-tsc
+src/bpmn-flows/node_modules
+
+# demo
+bpmn-flows-demo/dist
+bpmn-flows-demo/tmp
+bpmn-flows-demo/out-tsc
+bpmn-flows-demo/node_modules
+#developer environment
+bpmn-flows-development-environment/dist
+bpmn-flows-development-environment/tmp
+bpmn-flows-development-environment/out-tsc
+bpmn-flows-development-environment/node_modules
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db

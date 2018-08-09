@@ -1,0 +1,64 @@
+$cor-atual:  rgb(100, 100, 100);
+
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
+.flows-io-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.flows-io-svg-scene {
+    height: 5000px;
+    width: 5000px;
+    position: relative;
+}
+
+.flows-io-rect {
+    fill: none;
+    stroke: $cor-atual;
+}
+
+.flows-io-circle {
+    fill: none;
+    stroke: $cor-atual;
+}
+
+.flows-io-zoom-eye {
+    fill: none;
+    pointer-events: all;
+}
+
+.flows-io-text {
+    font-size: 11px;
+    text-align: center;
+    word-wrap: break-word;
+    color: $cor-atual;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.flows-io-marker {
+    fill: $cor-atual;
+}
+.flows-io-path {
+    fill: none;
+    stroke-width: 2px;
+    stroke: $cor-atual;
+    opacity: 0.8;
+}
+
+.flows-io-task-icon {
+    color: $cor-atual;
+}
+
+.flows-io-shadow {
+    box-shadow: inset 0px 0px 1px 0px $cor-atual;
+}

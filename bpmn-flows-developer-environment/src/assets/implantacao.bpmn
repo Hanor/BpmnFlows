@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:tns="http://bpmn.io/schema/bpmn" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="Definitions_1" name="" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.11.2">
+  <bpmn:process id="implantacao" name="Implantação" processType="None" isClosed="false" isExecutable="true">
+    <bpmn:startEvent id="inicioProcesso" camunda:formKey="inicioProcesso">
+      <bpmn:outgoing>SequenceFlow_0tp9woo</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1o44ts7</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0u69k35" sourceRef="definirGerenteProjeto" targetRef="agendarVistoria" />
+    <bpmn:userTask id="agendarVistoria" name="Agendar Vistoria" camunda:formKey="agendarVistoria" camunda:candidateGroups="ROLE_GERENTE_PROJETOS">
+      <bpmn:extensionElements>
+        <camunda:taskListener delegateExpression="${agendarVistoriaTarefaCriaService}" event="create" />
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_01aqzfu</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:subProcess id="SubProcess_0h7uuq5">
+      <bpmn:incoming>SequenceFlow_01aqzfu</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_123sfeg</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics camunda:collection="${agendarVistoriaTarefaCamundaService.pedidosUbsParaVistoria(execution)}" camunda:elementVariable="pedidoUbsId" />
+      <bpmn:userTask id="concluirVistoria" name="Concluir Vistoria" camunda:formKey="concluirVistoria" camunda:candidateUsers="admin" camunda:candidateGroups="ROLE_GESTOR_LOGISTICO">
+        <bpmn:extensionElements>
+          <camunda:taskListener delegateExpression="${vistoriaTarefaCriaService}" event="create" />
+        </bpmn:extensionElements>
+        <bpmn:incoming>SequenceFlow_0x9fo7t</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_0f0rs9z</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:startEvent id="instanciasVistoria">
+        <bpmn:outgoing>SequenceFlow_0x9fo7t</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:sequenceFlow id="SequenceFlow_0x9fo7t" sourceRef="instanciasVistoria" targetRef="concluirVistoria" />
+      <bpmn:userTask id="revisarVistoria" name="Revisar Vistoria" camunda:formKey="revisarVistoria" camunda:candidateGroups="ROLE_GERENTE_PROJETOS">
+        <bpmn:extensionElements>
+          <camunda:taskListener delegateExpression="${revisarVistoriaTarefaCriaService}" event="create" />
+        </bpmn:extensionElements>
+        <bpmn:incoming>SequenceFlow_0f0rs9z</bpmn:incoming>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="SequenceFlow_0f0rs9z" sourceRef="concluirVistoria" targetRef="revisarVistoria" />
+    </bpmn:subProcess>
+    <bpmn:sequenceFlow id="SequenceFlow_01aqzfu" sourceRef="agendarVistoria" targetRef="SubProcess_0h7uuq5" />
+    <bpmn:sequenceFlow id="SequenceFlow_123sfeg" sourceRef="SubProcess_0h7uuq5" targetRef="preKickoff" />
+    <bpmn:userTask id="preKickoff" name="Pré Kickoff" camunda:formKey="preKickoff" camunda:candidateGroups="ROLE_GERENTE_PROJETOS">
+      <bpmn:extensionElements>
+        <camunda:taskListener delegateExpression="${preKickoffTarefaCriaService}" event="create" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_123sfeg</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0b8awh1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0b8awh1" sourceRef="preKickoff" targetRef="assinarContrato" />
+    <bpmn:userTask id="assinarContrato" name="Assinar Contrato" camunda:formKey="assinarContrato" camunda:candidateGroups="ROLE_GERENTE_NEGOCIOS">
+      <bpmn:extensionElements>
+        <camunda:taskListener delegateExpression="${assinarContratoTarefaCriaService}" event="create" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0b8awh1</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1dmxpnc</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1dmxpnc" sourceRef="assinarContrato" targetRef="cadastrarSistema" />
+    <bpmn:userTask id="cadastrarSistema" name="Cadastrar Sistema" camunda:formKey="cadastrarSistema" camunda:candidateGroups="ROLE_GERENTE_NEGOCIOS">
+      <bpmn:extensionElements>
+        <camunda:taskListener delegateExpression="${cadastrarSistemaTarefaCriaService}" event="create" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1dmxpnc</bpmn:incoming>
+    </bpmn:userTask>
+    <bpmn:userTask id="definirGerenteProjeto" name="Definir Gerente de Projeto" camunda:formKey="definirGerenteProjeto" camunda:candidateGroups="ROLE_PMO">
+      <bpmn:extensionElements>
+        <camunda:taskListener delegateExpression="${definirGerenteProjetoTarefaCriaService}" event="create" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0tp9woo</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0u69k35</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0tp9woo" sourceRef="inicioProcesso" targetRef="definirGerenteProjeto" />
+    <bpmn:sequenceFlow id="SequenceFlow_1o44ts7" sourceRef="inicioProcesso" targetRef="definirRecursosVistoria" />
+    <bpmn:userTask id="definirRecursosVistoria" name="Definir Recursos para Vistoria" camunda:formKey="definirRecursosVistoria" camunda:candidateGroups="ROLE_GESTOR_LOGISTICO">
+      <bpmn:extensionElements>
+        <camunda:taskListener delegateExpression="${definirRecursosVistoriaTarefaCriaService}" event="create" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1o44ts7</bpmn:incoming>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diagram-_1" name="New Diagram" documentation="background=#FFFFFF;count=1;horizontalcount=3;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0">
+    <bpmndi:BPMNPlane bpmnElement="implantacao">
+      <bpmndi:BPMNShape id="Shape-StartEvent_1" bpmnElement="inicioProcesso">
+        <dc:Bounds x="-43" y="108" width="32" height="32" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="33" y="14" width="90" height="32" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape-Task_0ic8zh0" bpmnElement="agendarVistoria">
+        <dc:Bounds x="206" y="191" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="0" y="0" width="100" height="80" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape-Task_13crvxt" bpmnElement="concluirVistoria">
+        <dc:Bounds x="455" y="192" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="0" y="0" width="100" height="80" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_0u69k35" bpmnElement="SequenceFlow_0u69k35" sourceElement="UserTask_1bidr4w_di" targetElement="Shape-Task_0ic8zh0">
+        <di:waypoint xsi:type="dc:Point" x="175" y="231" />
+        <di:waypoint xsi:type="dc:Point" x="206" y="231" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="145.5" y="210" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="SubProcess_0h7uuq5_di" bpmnElement="SubProcess_0h7uuq5" isExpanded="true">
+        <dc:Bounds x="348" y="144" width="371" height="175" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_01aqzfu_di" bpmnElement="SequenceFlow_01aqzfu">
+        <di:waypoint xsi:type="dc:Point" x="306" y="231" />
+        <di:waypoint xsi:type="dc:Point" x="348" y="231" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="282" y="209.5" width="90" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="StartEvent_0uxjo2w_di" bpmnElement="instanciasVistoria">
+        <dc:Bounds x="375" y="214" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="348" y="253" width="90" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0x9fo7t_di" bpmnElement="SequenceFlow_0x9fo7t">
+        <di:waypoint xsi:type="dc:Point" x="411" y="232" />
+        <di:waypoint xsi:type="dc:Point" x="455" y="232" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="388" y="210.5" width="90" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_12nbqay_di" bpmnElement="revisarVistoria">
+        <dc:Bounds x="599" y="192" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0f0rs9z_di" bpmnElement="SequenceFlow_0f0rs9z">
+        <di:waypoint xsi:type="dc:Point" x="555" y="232" />
+        <di:waypoint xsi:type="dc:Point" x="599" y="232" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="532" y="210.5" width="90" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_123sfeg_di" bpmnElement="SequenceFlow_123sfeg">
+        <di:waypoint xsi:type="dc:Point" x="719" y="231" />
+        <di:waypoint xsi:type="dc:Point" x="756" y="231" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="692.5" y="209.5" width="90" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0h4w5oy_di" bpmnElement="preKickoff">
+        <dc:Bounds x="756" y="191" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0b8awh1_di" bpmnElement="SequenceFlow_0b8awh1">
+        <di:waypoint xsi:type="dc:Point" x="856" y="231" />
+        <di:waypoint xsi:type="dc:Point" x="904" y="231" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="835" y="209.5" width="90" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_111uno1_di" bpmnElement="assinarContrato">
+        <dc:Bounds x="904" y="191" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1dmxpnc_di" bpmnElement="SequenceFlow_1dmxpnc">
+        <di:waypoint xsi:type="dc:Point" x="1004" y="231" />
+        <di:waypoint xsi:type="dc:Point" x="1046" y="231" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="980" y="209.5" width="90" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0jvd84v_di" bpmnElement="cadastrarSistema">
+        <dc:Bounds x="1046" y="191" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1bidr4w_di" bpmnElement="definirGerenteProjeto">
+        <dc:Bounds x="75" y="191" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0tp9woo_di" bpmnElement="SequenceFlow_0tp9woo">
+        <di:waypoint xsi:type="dc:Point" x="-27" y="140" />
+        <di:waypoint xsi:type="dc:Point" x="-27" y="231" />
+        <di:waypoint xsi:type="dc:Point" x="75" y="231" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-57" y="179" width="90" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1o44ts7_di" bpmnElement="SequenceFlow_1o44ts7">
+        <di:waypoint xsi:type="dc:Point" x="-27" y="108" />
+        <di:waypoint xsi:type="dc:Point" x="-27" y="41" />
+        <di:waypoint xsi:type="dc:Point" x="75" y="41" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-57" y="68" width="90" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0rw4xvu_di" bpmnElement="definirRecursosVistoria">
+        <dc:Bounds x="75" y="1" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
