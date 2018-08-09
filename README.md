@@ -1,8 +1,8 @@
-## FlowsBpmn
+## BpmnFlows
 
-This is an Angular lib to render a BPMN 2.0 workflow.
+BpmnFlows is an Angular lib to render a BPMN 2.0 workflow. The proposal of this lib is build a mechanism to render an existing BPMN 2.0 (.bpmn) or create a new one, enabling all the features of the bpmn 2.0 to the creation or to the edition.
 
-Actually this lib only enable viewer.
+In this moment, this lib only enable viewer from an existing bpmn 2.0 file.
 
 ## To install
 
