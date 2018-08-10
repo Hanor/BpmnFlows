@@ -141,7 +141,7 @@
           },
           "configurations": {
             "production": {
-              "project": "bpmn-flows/ng-package.prod.json"
+              "project": "bpmn-flows/ng-package.json"
             }
           }
         },

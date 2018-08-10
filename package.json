@@ -1,10 +1,10 @@
 {
   "name": "bpmn-flows-all",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "copy": "cpx src/bpmn-flows/src/lib/bpmn-flows.component.scss dist/bpmn-flows/ && cpx README.md dist/bpmn-flows",
+    "copy": "cpx bpmn-flows/src/lib/bpmn-flows.component.scss dist/bpmn-flows/ && cpx README.md dist/bpmn-flows",
     "build": "ng build BpmnFlows --prod && npm run copy",
     "test": "ng test BpmnFlows",
     "lint": "ng lint BpmnFlows",
