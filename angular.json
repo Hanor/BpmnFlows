@@ -3,130 +3,6 @@
   "version": 1,
   "newProjectRoot": "Projects",
   "projects": {
-    "BpmnFlowsDeveloper": {
-      "root": "",
-      "sourceRoot": "bpmn-flows-developer-environment/src",
-      "projectType": "application",
-      "prefix": "app",
-      "schematics": {
-        "@schematics/angular:component": {
-          "styleext": "scss"
-        }
-      },
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/BpmnFlowsDeveloper",
-            "index": "bpmn-flows-developer-environment/src/index.html",
-            "main": "bpmn-flows-developer-environment/src/main.ts",
-            "polyfills": "bpmn-flows-developer-environment/src/polyfills.ts",
-            "tsConfig": "bpmn-flows-developer-environment/src/tsconfig.app.json",
-            "assets": [
-              "bpmn-flows-developer-environment/src/favicon.ico",
-              "bpmn-flows-developer-environment/src/assets"
-            ],
-            "styles": [
-              "bpmn-flows-developer-environment/src/styles.scss"
-            ],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "bpmn-flows-developer-environment/src/environments/environment.ts",
-                  "with": "bpmn-flows-developer-environment/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "BpmnFlowsDeveloper:build",
-            "port": 8080
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "BpmnFlowsDeveloper:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "BpmnFlowsDeveloper:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "bpmn-flows-developer-environment/src/test.ts",
-            "polyfills": "bpmn-flows-developer-environment/src/polyfills.ts",
-            "tsConfig": "bpmn-flows-developer-environment/src/tsconfig.spec.json",
-            "karmaConfig": "bpmn-flows-developer-environment/src/karma.conf.js",
-            "styles": [
-              "bpmn-flows-developer-environment/src/styles.scss"
-            ],
-            "scripts": [],
-            "assets": [
-              "bpmn-flows-developer-environment/src/favicon.ico",
-              "bpmn-flows-developer-environment/src/assets"
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "bpmn-flows-developer-environment/src/tsconfig.app.json",
-              "bpmn-flows-developer-environment/src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "BpmnFlowsDeveloper-e2e": {
-      "root": "e2e/",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "BpmnFlowsDeveloper:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "BpmnFlowsDeveloper:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
     "BpmnFlowsDemo": {
       "root": "",
       "sourceRoot": "bpmn-flows-demo/src",
@@ -252,37 +128,37 @@
       }
     },
     "BpmnFlows": {
-      "root": "src/bpmn-flows",
-      "sourceRoot": "src/bpmn-flows/src",
+      "root": "bpmn-flows",
+      "sourceRoot": "bpmn-flows/src",
       "projectType": "library",
       "prefix": "BF",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "src/bpmn-flows/tsconfig.lib.json",
-            "project": "src/bpmn-flows/ng-package.json"
+            "tsConfig": "bpmn-flows/tsconfig.lib.json",
+            "project": "bpmn-flows/ng-package.json"
           },
           "configurations": {
             "production": {
-              "project": "src/bpmn-flows/ng-package.prod.json"
+              "project": "bpmn-flows/ng-package.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/bpmn-flows/src/test.ts",
-            "tsConfig": "src/bpmn-flows/tsconfig.spec.json",
-            "karmaConfig": "src/bpmn-flows/karma.conf.js"
+            "main": "bpmn-flows/src/test.ts",
+            "tsConfig": "bpmn-flows/tsconfig.spec.json",
+            "karmaConfig": "bpmn-flows/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "src/bpmn-flows/tsconfig.lib.json",
-              "src/bpmn-flows/tsconfig.spec.json"
+              "bpmn-flows/tsconfig.lib.json",
+              "bpmn-flows/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
