@@ -1,2 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../../dist/bpmn-flows/bpmn-flows.component.scss';
+
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+}

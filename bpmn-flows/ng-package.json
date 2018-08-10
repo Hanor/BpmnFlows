@@ -6,6 +6,7 @@
   },
   "whitelistedNonPeerDependencies": [
     "d3",
-    "angular"
+    "angular",
+    "font-awesome"
   ]
 }

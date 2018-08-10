@@ -139,8 +139,6 @@ export class Scene {
     }
     private zoomEngine() {
         this.svgScene.append('rect')
-        .attr('width', '100%')
-        .attr('height', '100%')
         .attr('class', 'flows-io-zoom-eye')
         .call( d3.zoom()
             .scaleExtent([1 / 2, 4])
