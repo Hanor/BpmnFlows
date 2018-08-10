@@ -1,6 +1,6 @@
 {
   "name": "bpmn-flows",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Mechanism to view and edit bpmn 2.0 in angular",
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
@@ -11,10 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Hanor/FlowsBpmn.git"
+    "url": "https://github.com/Hanor/BpmnFlows.git"
   },
   "bugs": {
-    "url": "https://github.com/Hanor/FlowsBpmn/issues"
+    "url": "https://github.com/Hanor/BpmnFlows/issues"
   },
   "keywords": [
     "angular bpmn",
