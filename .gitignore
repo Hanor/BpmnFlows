@@ -3,10 +3,10 @@
 dist
 
 # lib
-src/bpmn-flows/dist
-src/bpmn-flows/tmp
-src/bpmn-flows/out-tsc
-src/bpmn-flows/node_modules
+bpmn-flows/dist
+bpmn-flows/tmp
+bpmn-flows/out-tsc
+bpmn-flows/node_modules
 
 # demo
 bpmn-flows-demo/dist
