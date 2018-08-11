@@ -1,6 +1,6 @@
 {
   "name": "bpmn-flows-all",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,7 +9,8 @@
     "test": "ng test BpmnFlows",
     "lint": "ng lint BpmnFlows",
     "e2e": "ng e2e BpmnFlows",
-    "publish": "npm run build && cd dist/bpmn-flows && npm publish"
+    "publish": "npm run build && cd dist/bpmn-flows && npm publish",
+    "publish-beta": "npm run build && cd dist/bpmn-flows && npm publish --tag beta"
   },
   "private": true,
   "dependencies": {

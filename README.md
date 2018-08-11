@@ -27,6 +27,8 @@ This lib load a bpmn 2.0 file and render the workflow. To use this lib you need 
         @import '../../node_modules/font-awesome/scss/font-awesome.scss';
         @import '../../dist/bpmn-flows/bpmn-flows.component.scss';
 
+    Note: The bpmn 2.0 types icons is from the font-awesome. Then the scss import is to load this icons to use in the  library
+
 - Import and declare the BpmnFlowsModule in you main module:
 
         import { BrowserModule } from '@angular/platform-browser';
