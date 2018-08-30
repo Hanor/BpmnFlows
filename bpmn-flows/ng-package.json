@@ -7,6 +7,6 @@
   "whitelistedNonPeerDependencies": [
     "d3",
     "angular",
-    "font-awesome"
+    "@fortawesome/fontawesome-free"
   ]
 }

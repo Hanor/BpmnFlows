@@ -1,0 +1,26 @@
+@import 'variables.scss';
+
+.flows-io-rect {
+    stroke: $bpmn-flows-rect-color;
+}
+.flows-io-circle {
+    stroke: $bpmn-flows-circle-color;
+}
+.flows-io-text {
+    color: $bpmn-flows-text-color;
+}
+.flows-io-marker {
+    stroke: $bpmn-flows-marker-color;
+}
+
+.flows-io-path {
+    stroke: $bpmn-flows-sequence-color;
+}
+
+.flows-io-task-icon {
+    color: $bpmn-flows-icon-color;
+}
+
+.flows-io-shadow {
+    stroke: $bpmn-flows-shadow-color;
+}

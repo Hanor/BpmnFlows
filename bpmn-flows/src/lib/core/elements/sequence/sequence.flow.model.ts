@@ -7,8 +7,10 @@ export class SequenceFlow {
     target: Shape;
     id: string;
     element: PrimitiveSequence;
-    constructor( id: string, source: Shape, target: Shape ) {
+    name: string;
+    constructor( id: string, name: string, source: Shape, target: Shape ) {
         this.id = id;
+        this.name = name;
         this.source = source;
         this.target = target;
         this.element = new SequenceFlowPath();

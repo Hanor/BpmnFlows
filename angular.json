@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/BpmnFlowsDemo",
+            "outputPath": "dist/bpmn-flows-demo",
             "index": "bpmn-flows-demo/src/index.html",
             "main": "bpmn-flows-demo/src/main.ts",
             "polyfills": "bpmn-flows-demo/src/polyfills.ts",
