@@ -11,6 +11,7 @@ export class Shape {
     in: Array<SequenceFlow>;
     out: Array<SequenceFlow>;
     element: PrimitiveElement;
+    childrens: Array<Shape> = [];
     constructor( xmlShape ) {
         this.form = xmlShape.form;
         this.id = xmlShape.id;

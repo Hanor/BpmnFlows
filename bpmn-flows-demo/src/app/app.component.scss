@@ -1,0 +1,21 @@
+@import '../assets/custom/variables.scss';
+
+.ui-nav-bar {
+    float: left;
+    height: 50px;
+    width: 100%;
+    color: $bpmn-flows-default-color;
+    line-height: 50px;
+}
+.ui-nav-bar-system-name {
+    float: left;
+    margin-left: 10px;
+    font-size: 14px;
+    font-family: Verdana, Helvetica;
+    font-weight: bold;
+}
+.ui-container {
+    float: left;
+    width: 100%;
+    height: calc(100% - 50px);
+}

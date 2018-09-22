@@ -1,5 +1,12 @@
 export class PrimitiveElement {
-    svgElement
-    cssClass
-    constructor( cssClass: string, svgElement: any) {}
+    cssClass: string;
+    height: number;
+    icon: string;
+    iconCssClass: string;
+    position: {x: number, y: number}
+    svgElement: any;
+    textCssClass: string;
+    textPosition: {x: number, y: number};
+    width: number;
+    constructor() {}
 }

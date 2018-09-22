@@ -1,18 +1,20 @@
 {
   "name": "bpmn-flows-all",
-  "version": "0.1.2",
+  "version": "0.1.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "copy": "cpx bpmn-flows/src/lib/bpmn-flows.component.scss dist/bpmn-flows/ && cpx README.md dist/bpmn-flows",
-    "build": "ng build BpmnFlows --prod && npm run copy",
+    "copy": "cpx bpmn-flows/src/lib/bpmn-flows.component.scss dist/bpmn-flows/ && cpx bpmn-flows/src/lib/bpmn-flows.variables.scss dist/bpmn-flows/ && cpx README.md dist/bpmn-flows",
+    "build": "ng build BpmnFlows && npm run copy && ng serve",
+    "build-prod": "ng build BpmnFlows --prod && npm run copy",
     "test": "ng test BpmnFlows",
     "lint": "ng lint BpmnFlows",
     "e2e": "ng e2e BpmnFlows",
-    "publish": "npm run build && cd dist/bpmn-flows && npm publish",
-    "publish-beta": "npm run build && cd dist/bpmn-flows && npm publish --tag beta"
+    "publish": "npm run build-prod && cd dist/bpmn-flows && npm publish",
+    "publish-beta": "npm run build-prod && cd dist/bpmn-flows && npm publish --tag beta",
+    "deploy": "firebase deploy"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^6.1.2",
     "@angular/common": "^6.1.2",
@@ -23,10 +25,12 @@
     "@angular/platform-browser": "^6.1.2",
     "@angular/platform-browser-dynamic": "^6.1.2",
     "@angular/router": "^6.1.2",
+    "@fortawesome/fontawesome-free": "^5.2.0",
     "core-js": "^2.5.4",
     "cpx": "^1.5.0",
     "d3": "^5.5.0",
     "font-awesome": "^4.7.0",
+    "hoek": "^5.0.4",
     "rxjs": "^6.0.0",
     "zone.js": "~0.8.26"
   },

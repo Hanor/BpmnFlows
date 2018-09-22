@@ -1,7 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-$fa-font-path: '../../node_modules/font-awesome/fonts';
-@import '../../node_modules/font-awesome/scss/font-awesome.scss';
+$fa-font-path: "../../node_modules/@fortawesome/fontawesome-free/webfonts";
+@import "../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
+
 @import '../../dist/bpmn-flows/bpmn-flows.component.scss';
+@import 'assets/custom/bpmn-flows.custom.scss';
+@import 'assets/custom/variables.scss';
 
 * {
     box-sizing: border-box;
@@ -11,4 +15,5 @@ body, html {
     margin: 0px;
     height: 100%;
     width: 100%;
+    background: $ui-container;
 }

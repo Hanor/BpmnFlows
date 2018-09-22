@@ -5,6 +5,12 @@ import { SequenceFlow } from '../elements/sequence/sequence.flow.model';
 import { BehaviorSubject } from 'rxjs';
 import { BpmnElements } from '../elements/bpmn.elements';
 import * as d3 from 'd3';
+import { PrimitiveRhombus } from '../elements/shape/primitive.rhombus';
+import { PrimitiveElement } from '../elements/primitive.element';
+import { MultiInstanceRect } from '../elements/shape/multi.instance.rect';
+import { ParticipantRect } from '../elements/shape/participant.rect';
+import { LaneRect } from '../elements/shape/lane.rect';
+import { SequenceFlowPath } from '../elements/sequence/sequence.flow.path';
 
 export class Scene {
     private shapes;
@@ -33,20 +39,24 @@ export class Scene {
         }
         return d;
     }
+    private calculateTextposition(element: PrimitiveElement) {
+        let x = element.textPosition.x - element.position.x + 10;
+        let y = element.textPosition.y - element.position.y + 10;
+        return x + ',' + y;
+    }
     private loadDefs() {
-        this.svgSceneDefs.append( 'defs' )
-        .append( 'marker' )
-            .attr('id', 'marker_arrow')
-            .attr('markerHeight', 10)
-            .attr('markerWidth', 12)
-            .attr('markerUnits', 'strokeWidth')
-            .attr('orient', 'auto')
-            .attr('refX', 9.5)
-            .attr('refY', 10)
-            .attr( 'viewBox', '0 0 22 22' )
-            .append( 'path' )
-                .attr( 'd', 'M 1 5 L 11 10 L 1 15 Z' )
-                .attr( 'class', 'flows-io-marker' )
+        this.svgSceneDefs.append( 'defs' ).append( 'marker' )
+        .attr('id', 'marker_arrow')
+        .attr('markerHeight', 10)
+        .attr('markerWidth', 12)
+        .attr('markerUnits', 'strokeWidth')
+        .attr('orient', 'auto')
+        .attr('refX', 9.5)
+        .attr('refY', 10)
+        .attr( 'viewBox', '0 0 22 22' )
+        .append( 'path' )
+            .attr( 'd', 'M 1 5 L 11 10 L 1 15 Z' )
+            .attr( 'class', 'flows-io-marker' )
     }
     private loadElements() {
         this.loadDefs();
@@ -54,14 +64,16 @@ export class Scene {
         this.loadSequences();
     }
     private loadShapes() {
-        const shapesKeys = Object.keys( this.shapes );
-        for( let shapesKey of shapesKeys ) {
-            let shape: Shape = this.shapes[ shapesKey ];
+        const shapesKeys = Object.keys(this.shapes);
+        for (let shapesKey of shapesKeys) {
+            let shape: Shape = this.shapes[shapesKey];
             shape.element.svgElement = this.svgSceneShapes.append('g');
-            if ( shape.element instanceof PrimitiveCircle ) {
-                this.renderCircle( shape.element, shape );
-            } else if ( shape.element instanceof PrimitiveRect ) {
-                this.renderRect( shape.element, shape );
+            if (shape.element instanceof PrimitiveCircle) {
+                this.renderCircle(shape, shape.element);
+            } else if (shape.element instanceof PrimitiveRect) { 
+                this.renderRect( shape, shape.element);
+            } else if (shape.element instanceof PrimitiveRhombus) {
+                this.renderRhombus(shape, shape.element);
             }
         }
     }
@@ -79,61 +91,123 @@ export class Scene {
         for( let sequenceKey of sequencesKeys ) {
             let sequence : SequenceFlow =  this.sequences[ sequenceKey ];
             sequence.element.svgElement = this.svgSceneSequences.append('g');
-            this.renderSequence( sequence );
+            this.renderSequence(sequence);
         }
     }
-    private renderCircle( element: PrimitiveCircle, shape: Shape ) {
-        element.svgElement
-        .attr('transform', 'translate( '+ element.position.x +', '+ element.position.y +' )')
-        .append('circle')  
-            .attr('cx', '16')
-            .attr('cy', '16')
-            .attr('r', element.ratio)
-            .attr('class', element.cssClass );
-    }
-    private renderAlternatives( name:string, element: PrimitiveRect ) {
-        // todo migrar estes items para svg nativo!
-        // todo change this forms to be native svg!
-        const foreign = element.svgElement.append('foreignObject')
-        .attr('x', element.position.x)
-        .attr('y', element.position.y)
+    private renderCircle( shape: Shape, element: PrimitiveCircle) {
+        let name = shape.name;
+        let circle = element.svgElement.append('circle');
 
-        const div = foreign.append('xhtml:div')
-        .attr('style', 'float:left; width: '+ (element.width) +'px; height:'+ (element.height) +'px')
-        .attr( 'class', 'flows-io-shadow' )
-
-        if ( element.icon ) {
-            div.append('xhtml:div')
-            .attr('style', 'float:left; width: '+ (element.width) +'px; padding-top: 2px; padding-left:5px; height:10px;')
-            .append('span')
-                .attr('class', element.icon +' '+ element.iconCssClass)
-                .attr('style', 'float:left; font-size:14px')
+        circle.attr('cx', '16');
+        circle.attr('cy', '16');
+        circle.attr('r', element.ratio);
+        circle.attr('class', element.cssClass );
+            
+        if (name) {
+            let text = element.svgElement.append('text');
+            let translate = this.calculateTextposition(element);
+            text.attr('class', element.textCssClass);
+            text.attr('transform', 'translate('+ translate +')');
+            text.text(name);
         }
 
-        if ( name ) {
-            div.append('xhtml:div')
-            .attr('style', 'float:left; width: '+ (element.width) +'px; height:'+ (element.height - 20) +'px;')
-            .attr('class', element.textCssClass)
-            .text( name )
-        }
+        element.svgElement.attr('transform', 'translate( '+ element.position.x +', '+ element.position.y +' )')
     }
-    private renderRect( element: PrimitiveRect, shape: Shape ) {
-        element.svgElement.append('rect')
-        .attr('x', element.position.x)
-        .attr('y', element.position.y)
-        .attr('rx', element.rx)
-        .attr('ry', element.ry)
-        .attr('width', element.width)
-        .attr('height', element.height)
-        .attr('class', element.cssClass );
-        this.renderAlternatives( shape.name, element );
+    private renderRect( shape: Shape, element: PrimitiveRect ) {
+        let rec = element.svgElement.append('rect');
+
+        rec.attr('id', shape.id);
+        rec.attr('width', element.width);
+        rec.attr('height', element.height);
+        rec.attr('class', element.cssClass );
+        
+        if (element instanceof MultiInstanceRect) {
+            this.renderMultiInstance(shape, element);
+        } else if (element instanceof ParticipantRect || element instanceof LaneRect) {
+            this.renderLane(shape, element);
+        } else {
+            this.renderTask(shape, element);
+        }
+
+        element.svgElement.attr('transform', 'translate( '+ element.position.x +', '+ element.position.y +' )');
+    }
+    private renderRhombus(shape: Shape, element: PrimitiveRhombus) {
+        let polygon = element.svgElement.append('polygon');
+        let foreignObject = element.svgElement.append('foreignObject').attr('y', 0).attr('x', 0);
+        let div = foreignObject.append('xhtml:div')
+        let name = shape.name;
+
+        polygon.attr('points', element.points);
+        polygon.attr('width', element.width);
+        polygon.attr('height', element.height);
+        polygon.attr('class', element.cssClass );
+
+        if (name) {
+            let text = element.svgElement.append('text');
+            let translate = this.calculateTextposition(element);
+            text.attr('class', element.textCssClass);
+            text.attr('transform', 'translate('+ translate +')');
+            text.text(name);
+        }
+
+        div.attr('style', 'float:left; width: '+ (element.width) +'px; height:'+ (element.height) +'px;')
+        div.attr('class', element.icon +' '+ element.iconCssClass);       
+
+        element.svgElement.attr('transform', 'translate( '+ element.position.x +', '+ element.position.y +' )')
     }
     private renderSequence( sequence: SequenceFlow ) {
-        sequence.element.svgElement.append('path')
-        .attr('class', sequence.element.cssClass )
-        .attr('d', this.calculatePath( sequence ))
-        .attr('marker-end', 'url(#marker_arrow)');
+        let sequenceElement = <SequenceFlowPath> sequence.element;
+        let path = sequenceElement.svgElement.append('path');
+
+        path.attr('id', sequence.id);
+        path.attr('class', sequenceElement.cssClass );
+        path.attr('d', this.calculatePath( sequence ));
+        path.attr('marker-end', 'url(#marker_arrow)');
+
+        if (sequence.name) {
+            let text = sequenceElement.svgElement.append('text');
+            text.attr('class', sequenceElement.textCssClass);
+            text.attr('transform', 'translate(' + (sequenceElement.textPosition.x + 20) + ',' + (sequenceElement.textPosition.y + 20) +')')
+            text.text(sequence.name);
+        }
     }
+
+    private renderLane(shape: Shape, element: PrimitiveRect) {
+        let text = element.svgElement.append('text');
+        text.attr('class', element.textCssClass);
+        text.attr('x', -element.height /2);
+        text.attr('y', 15);
+        text.text(shape.name);
+    }
+    private renderMultiInstance(shape: Shape, element: PrimitiveRect) {
+        let name = shape.name;
+        if (name) {
+            let text = element.svgElement.append('text');
+            text.attr('class', element.textCssClass);
+            text.text(name);
+            text.attr('line-height', '1.2');
+            text.attr('y', 20);
+            text.attr('x', element.width/2);
+        }
+    }
+    private renderTask(shape: Shape, element: PrimitiveRect) {
+        let taskName = shape.name;
+
+        if (element.icon) {
+            element.svgElement.append('foreignObject').attr('y', 5).attr('x', 5)
+            .append('xhtml:span').attr('class', element.iconCssClass + ' ' + element.icon);
+        }
+
+        if (taskName) {
+            let text = element.svgElement.append('text');
+            text.attr('class', element.textCssClass);
+            text.text(taskName);
+            text.attr('line-height', '1.2');
+            text.attr('y', (element.height /2) + 5);
+            text.attr('x', element.width /2);
+        }
+    }
+
     private zoomed( transform, shapes ) {
         shapes.attr('transform', transform);
     }

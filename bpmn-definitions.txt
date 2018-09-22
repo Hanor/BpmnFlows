@@ -1,0 +1,4 @@
+LaneSet - The LaneSet is a group of lanes. The laneset is only present in the .bpmn as group.
+ IS NOT A DIAGRAM OBJECT;
+ChildLaneSet - Is a LaneSet inside a lane. IS NOT A DIAGRAM OBJECT;
+Participant - Is a Pool of lanes. This is a digram object.

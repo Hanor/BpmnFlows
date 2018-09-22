@@ -1,3 +1,6 @@
+[![Demo]](https://bpmnflows.firebaseapp.com)
+[![Donate]](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=96LEHU7G2Z2MC)
+
 ## BpmnFlows
 
 BpmnFlows is an Angular lib to render a BPMN 2.0 workflow. The proposal of this lib is build a mechanism to render an existing BPMN 2.0 (.bpmn) or create a new one, enabling all the features of the bpmn 2.0 to the creation or to the edition.
@@ -10,7 +13,8 @@ BpmnFlows is under development and some features will come in the future. If you
 
 ## Demo
 
-BpmnFlows actually don't give a live demo but you can have more details to use in the repository especially in the directory bpmn-flows-demo.
+BpmnFlows live demo can be accessed in https://bpmnflows.firebaseapp.com.
+Also you can have more details to use in the repository especially in the directory bpmn-flows-demo.
 
 ## To install
 
@@ -23,9 +27,11 @@ To install this lib you only need to execute:
 This lib load a bpmn 2.0 file and render the workflow. To use this lib you need to:
 - Import in your main style.scss this scss:
 
-        $fa-font-path: '../../node_modules/font-awesome/fonts';
-        @import '../../node_modules/font-awesome/scss/font-awesome.scss';
-        @import '../../dist/bpmn-flows/bpmn-flows.component.scss';
+        $fa-font-path: "../../node_modules/@fortawesome/fontawesome-free/webfonts";
+        @import "../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
+        @import "../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
+
+    Note: The bpmn 2.0 types icons is from the font-awesome. Then the scss import is to load this icons to use in the  library
 
     Note: The bpmn 2.0 types icons is from the font-awesome. Then the scss import is to load this icons to use in the  library
 
@@ -59,13 +65,27 @@ And that's is it.
 
 ## Enjoy.
 
-## To donate
+## License
 
-https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=96LEHU7G2Z2MC
+MIT License
 
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="96LEHU7G2Z2MC">
-<input type="image" src="https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - A maneira fácil e segura de enviar pagamentos online!">
-<img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
-</form>
+Copyright (c) 2018 Hanor Sátiro Cintra
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
