@@ -1,5 +1,5 @@
-[![Demo]](https://bpmnflows.firebaseapp.com)
-[![Donate]](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=96LEHU7G2Z2MC)
+[Demo](https://bpmnflows.nihasoft.com)
+[Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=96LEHU7G2Z2MC)
 
 ## BpmnFlows
 
@@ -13,7 +13,7 @@ BpmnFlows is under development and some features will come in the future. If you
 
 ## Demo
 
-BpmnFlows live demo can be accessed in https://bpmnflows.firebaseapp.com.
+BpmnFlows live demo can be accessed in https://bpmnflows.nihasoft.com.
 Also you can have more details to use in the repository especially in the directory bpmn-flows-demo.
 
 ## To install

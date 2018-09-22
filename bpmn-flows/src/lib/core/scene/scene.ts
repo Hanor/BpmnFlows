@@ -218,5 +218,6 @@ export class Scene {
             .scaleExtent([1 / 2, 4])
             .on('zoom', () => this.zoomed( d3.event.transform, this.svgSceneElements ))
         )
+        this.svgSceneElements.attr('transform', 'translate(337,259)');
     }
 }
