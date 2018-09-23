@@ -54,7 +54,7 @@ export class Scene {
         }
 
         //todo Create a mechanism to center the bpmn2.0 in the mid of the screen.
-        let translateX = translateXFix;
+        let translateX = translateXFix + 20;
         let translateY = translateYFix;
 
         let centeredZoom = d3.zoomIdentity.translate(translateX, translateY).scale(scale);
@@ -69,7 +69,7 @@ export class Scene {
         return d;
     }
     private calculateTextposition(element: PrimitiveElement) {
-        let x = element.textPosition.x - element.position.x + 10;
+        let x = element.textPosition.x - element.position.x + 20;
         let y = element.textPosition.y - element.position.y + 10;
         return x + ',' + y;
     }
@@ -199,7 +199,7 @@ export class Scene {
         if (sequence.name) {
             let text = sequenceElement.svgElement.append('text');
             text.attr('class', sequenceElement.textCssClass);
-            text.attr('transform', 'translate(' + (sequenceElement.textPosition.x + 40) + ',' + (sequenceElement.textPosition.y) +')')
+            text.attr('transform', 'translate(' + (sequenceElement.textPosition.x) + ',' + (sequenceElement.textPosition.y + 10) +')')
             text.text(sequence.name);
         }
     }
