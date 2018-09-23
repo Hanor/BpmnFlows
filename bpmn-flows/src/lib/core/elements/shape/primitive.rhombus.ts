@@ -21,8 +21,8 @@ export class PrimitiveRhombus extends PrimitiveElement {
         this.height = 0;
         this.position = { x: 0, y: 0 };
         this.points = '';
-        this.textCssClass = 'flows-io-text';
-        this.cssClass = 'flows-io-gateway';
-        this.iconCssClass = 'flows-io-gateway-icon';
+        this.textCssClass = 'bpmn-flows-text';
+        this.cssClass = 'bpmn-flows-gateway';
+        this.iconCssClass = 'bpmn-flows-gateway-icon';
      }
 }

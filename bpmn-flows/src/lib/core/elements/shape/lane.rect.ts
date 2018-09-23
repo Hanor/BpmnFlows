@@ -7,6 +7,6 @@ export class LaneRect extends PrimitiveRect {
     father: LaneRect | ParticipantRect;
     constructor( ) {
         super();
-        this.textCssClass = 'flows-io-lane-name';
+        this.textCssClass = 'bpmn-flows-lane-name';
     }
 }

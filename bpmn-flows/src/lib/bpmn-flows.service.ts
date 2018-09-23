@@ -44,7 +44,7 @@ export class BpmnFlowsService {
       })
   }
   renderBpmn() {
-      this.scene = new Scene( this.bpmnElements );
+      this.scene = new Scene( this.bpmnElements, 'bpmn-flows-container' );
       this.scene.init();
       this.eventRenderedBpmn();
   }

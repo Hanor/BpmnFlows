@@ -53,3 +53,5 @@ testem.log
 Thumbs.db
 
 *.log
+
+*.cache

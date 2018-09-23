@@ -13,23 +13,52 @@ import { LaneRect } from '../elements/shape/lane.rect';
 import { SequenceFlowPath } from '../elements/sequence/sequence.flow.path';
 
 export class Scene {
-    private shapes;
+
+    private centerEye: any = {};
     loaded$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    private scene:string = '.flows-io-container';
+
+    private zoomBehaviour: any;
+    private zoomEye: any;
+    
+    private shapes;
     private sequences;
     private svgScene = null;
     private svgSceneElements = null;
     private svgSceneShapes = null;
     private svgSceneSequences = null;
     private svgSceneDefs = null;
-    constructor( private bpmnElements: BpmnElements ) {
+    constructor( private bpmnElements: BpmnElements, private sceneClass: string) {
         this.sequences = this.bpmnElements.sequences;
         this.shapes = this.bpmnElements.shapes;
      }
     init() {
         this.loadSceneEngine();
         this.loadElements();
+        this.calculateCenterEye();
         this.loaded$.next( true );
+    }
+    private calculateCenterEye() {
+        let bpmnFlowsContainer = document.getElementsByClassName(this.sceneClass)[0];
+        let bpmnWidth = Math.abs(this.centerEye.maxX - this.centerEye.minX);
+        let bpmnHeight = Math.abs(this.centerEye.maxY - this.centerEye.minY);
+        let translateXFix = (this.centerEye.minX < 0) ? this.centerEye.minX * -1 : 0;
+        let translateYFix = (this.centerEye.minY < 0) ? this.centerEye.minY * -1 : 0;
+
+        let width = bpmnFlowsContainer.clientWidth;
+        let height = bpmnFlowsContainer.clientHeight;
+        let scale = 1;
+        
+
+        while((bpmnWidth * scale) > width || (bpmnHeight * scale) > height) {
+            scale -= 0.03;
+        }
+
+        //todo Create a mechanism to center the bpmn2.0 in the mid of the screen.
+        let translateX = translateXFix;
+        let translateY = translateYFix;
+
+        let centeredZoom = d3.zoomIdentity.translate(translateX, translateY).scale(scale);
+        this.zoomEye.call(this.zoomBehaviour.transform, centeredZoom)
     }
     private calculatePath( sequence: SequenceFlow ) {
         const waypoints = sequence.element.waypoints;
@@ -56,7 +85,7 @@ export class Scene {
         .attr( 'viewBox', '0 0 22 22' )
         .append( 'path' )
             .attr( 'd', 'M 1 5 L 11 10 L 1 15 Z' )
-            .attr( 'class', 'flows-io-marker' )
+            .attr( 'class', 'bpmn-flows-marker' )
     }
     private loadElements() {
         this.loadDefs();
@@ -78,8 +107,8 @@ export class Scene {
         }
     }
     private loadSceneEngine() {
-        this.svgScene = d3.select( this.scene ).append( 'svg' );
-        this.svgScene.attr('class', 'flows-io-svg-scene');
+        this.svgScene = d3.select( '.' + this.sceneClass ).append( 'svg' );
+        this.svgScene.attr('class', 'bpmn-flows-svg-scene');
         this.svgSceneElements = this.svgScene.append( 'g' );
         this.svgSceneDefs = this.svgSceneElements.append( 'g' );
         this.svgSceneSequences = this.svgSceneElements.append( 'g' );
@@ -112,6 +141,7 @@ export class Scene {
         }
 
         element.svgElement.attr('transform', 'translate( '+ element.position.x +', '+ element.position.y +' )')
+        this.setCenterEye(element.position, element.width, element.height);
     }
     private renderRect( shape: Shape, element: PrimitiveRect ) {
         let rec = element.svgElement.append('rect');
@@ -130,6 +160,7 @@ export class Scene {
         }
 
         element.svgElement.attr('transform', 'translate( '+ element.position.x +', '+ element.position.y +' )');
+        this.setCenterEye(element.position, element.width, element.height);
     }
     private renderRhombus(shape: Shape, element: PrimitiveRhombus) {
         let polygon = element.svgElement.append('polygon');
@@ -154,6 +185,7 @@ export class Scene {
         div.attr('class', element.icon +' '+ element.iconCssClass);       
 
         element.svgElement.attr('transform', 'translate( '+ element.position.x +', '+ element.position.y +' )')
+        this.setCenterEye(element.position, element.width, element.height);
     }
     private renderSequence( sequence: SequenceFlow ) {
         let sequenceElement = <SequenceFlowPath> sequence.element;
@@ -167,7 +199,7 @@ export class Scene {
         if (sequence.name) {
             let text = sequenceElement.svgElement.append('text');
             text.attr('class', sequenceElement.textCssClass);
-            text.attr('transform', 'translate(' + (sequenceElement.textPosition.x + 20) + ',' + (sequenceElement.textPosition.y + 20) +')')
+            text.attr('transform', 'translate(' + (sequenceElement.textPosition.x + 40) + ',' + (sequenceElement.textPosition.y) +')')
             text.text(sequence.name);
         }
     }
@@ -206,18 +238,43 @@ export class Scene {
             text.attr('y', (element.height /2) + 5);
             text.attr('x', element.width /2);
         }
+        this.setCenterEye(element.position, element.width, element.height);
+    }
+
+    private setCenterEye(position: any, width: number, height: number) {
+        if (!this.centerEye.maxX) {
+            this.centerEye.maxX = position.x;
+            this.centerEye.minX = position.x;
+            this.centerEye.minY = position.y;
+            this.centerEye.maxY = position.y;
+            return;
+        }
+        
+        if (this.centerEye.minX > position.x) {
+            this.centerEye.minX = position.x;
+        } 
+        if (this.centerEye.maxX < position.x + width) {
+            this.centerEye.maxX = position.x + width;
+        } 
+        if (this.centerEye.minY > position.y) {
+            this.centerEye.minY = position.y;
+        }
+        if (this.centerEye.maxY < position.y + height) {
+            this.centerEye.maxY = position.y + height;
+        }  
     }
 
     private zoomed( transform, shapes ) {
         shapes.attr('transform', transform);
     }
     private zoomEngine() {
-        this.svgScene.append('rect')
-        .attr('class', 'flows-io-zoom-eye')
-        .call( d3.zoom()
-            .scaleExtent([1 / 2, 4])
-            .on('zoom', () => this.zoomed( d3.event.transform, this.svgSceneElements ))
-        )
-        this.svgSceneElements.attr('transform', 'translate(337,259)');
+        
+        this.zoomBehaviour = d3.zoom()
+        .scaleExtent([1 / 2, 4])
+        .on('zoom', () => this.zoomed( d3.event.transform, this.svgSceneElements ));
+
+        this.zoomEye = this.svgScene.append('rect');
+        this.zoomEye.attr('class', 'bpmn-flows-zoom-eye')
+        this.zoomEye.call( this.zoomBehaviour )
     }
 }

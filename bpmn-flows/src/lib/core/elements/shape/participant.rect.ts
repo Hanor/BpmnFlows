@@ -5,6 +5,6 @@ export class ParticipantRect extends PrimitiveRect {
     lanes: Array<LaneRect> = [];
     constructor( ) {
         super();
-        this.textCssClass = 'flows-io-lane-name';
+        this.textCssClass = 'bpmn-flows-lane-name';
     }
 }

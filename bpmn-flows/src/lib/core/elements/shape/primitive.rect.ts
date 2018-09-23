@@ -12,8 +12,8 @@ export class PrimitiveRect extends PrimitiveElement {
         this.width = 0;
         this.height = 0;
         this.position = { x: 0, y: 0 };
-        this.cssClass = 'flows-io-rect';
-        this.textCssClass = 'flows-io-text';
-        this.iconCssClass = 'flows-io-task-icon';
+        this.cssClass = 'bpmn-flows-rect';
+        this.textCssClass = 'bpmn-flows-text';
+        this.iconCssClass = 'bpmn-flows-task-icon';
      }
 }

@@ -1,26 +1,26 @@
 @import 'variables.scss';
 
-.flows-io-rect {
+.bpmn-flows-rect {
     stroke: $bpmn-flows-rect-color;
 }
-.flows-io-circle {
+.bpmn-flows-circle {
     stroke: $bpmn-flows-circle-color;
 }
-.flows-io-text {
+.bpmn-flows-text {
     color: $bpmn-flows-text-color;
 }
-.flows-io-marker {
+.bpmn-flows-marker {
     stroke: $bpmn-flows-marker-color;
 }
 
-.flows-io-path {
+.bpmn-flows-path {
     stroke: $bpmn-flows-sequence-color;
 }
 
-.flows-io-task-icon {
+.bpmn-flows-task-icon {
     color: $bpmn-flows-icon-color;
 }
 
-.flows-io-shadow {
+.bpmn-flows-shadow {
     stroke: $bpmn-flows-shadow-color;
 }

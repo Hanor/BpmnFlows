@@ -8,8 +8,8 @@ export class PrimitiveCircle extends PrimitiveElement {
         this.type = 'circle';
         this.ratio = null;
         this.position = { x: 0, y: 0 };
-        this.cssClass = 'flows-io-circle';
-        this.textCssClass = 'flows-io-circle-name';
+        this.cssClass = 'bpmn-flows-circle';
+        this.textCssClass = 'bpmn-flows-circle-name';
     }
 
     setRatio(ratio: number) {
