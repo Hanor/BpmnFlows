@@ -1,4 +1,4 @@
-[Demo](https://bpmnflows.nihasoft.com)
+[Demo](https://bpmnflows.nihasoft.com) 
 [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=96LEHU7G2Z2MC)
 
 ## BpmnFlows
@@ -25,13 +25,16 @@ To install this lib you only need to execute:
 ## To use
 
 This lib load a bpmn 2.0 file and render the workflow. To use this lib you need to:
-- Import in your main style.scss this scss:
+
+- Import in your main style.scss the BpmnFlows scss:
+        
+        @import "../../node_modules/bpmn-flows/bpmn-flows.component.scss";
+
+- Import in yout main style.scss this scss to the icons:
 
         $fa-font-path: "../../node_modules/@fortawesome/fontawesome-free/webfonts";
         @import "../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
         @import "../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
-
-    Note: The bpmn 2.0 types icons is from the font-awesome. Then the scss import is to load this icons to use in the  library
 
     Note: The bpmn 2.0 types icons is from the font-awesome. Then the scss import is to load this icons to use in the  library
 
