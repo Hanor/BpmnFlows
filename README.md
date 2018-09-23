@@ -30,7 +30,7 @@ This lib load a bpmn 2.0 file and render the workflow. To use this lib you need 
         
         @import "../../node_modules/bpmn-flows/bpmn-flows.component.scss";
 
-- Import in yout main style.scss this scss to the icons:
+- Import in your main style.scss this scss to the icons:
 
         $fa-font-path: "../../node_modules/@fortawesome/fontawesome-free/webfonts";
         @import "../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
